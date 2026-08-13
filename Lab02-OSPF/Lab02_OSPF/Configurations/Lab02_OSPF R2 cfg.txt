@@ -1,0 +1,276 @@
+R2#sh run
+Building configuration...
+
+Current configuration : 1373 bytes
+!
+version 15.1
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname R2
+!
+!
+!
+enable secret 5 $1$mERr$RldxcCZEZsTFTETUyRaA50
+!
+!
+!
+!
+!
+aaa new-model
+!
+aaa authentication login default local 
+!
+!
+!
+!
+!
+!
+!
+no ip cef
+no ipv6 cef
+!
+!
+!
+username mihajlok privilege 15 secret 5 $1$mERr$W1IbdyLzAZgXm2SPii/Df0
+!
+!
+license udi pid CISCO2911/K9 sn FTX1524TOU0-
+!
+!
+!
+!
+!
+!
+!
+!
+!
+ip ssh version 2
+ip domain-name lab.local
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0
+ description Veza-ka-svicu
+ ip address 192.168.20.1 255.255.255.0
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1
+ description UNUSED
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface GigabitEthernet0/2
+ description UNUSED
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface Serial0/0/0
+ description veza-ka-R1
+ ip address 10.0.12.2 255.255.255.252
+!
+interface Serial0/0/1
+ description UNUSED
+ no ip address
+ clock rate 2000000
+ shutdown
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+router ospf 10
+ router-id 2.2.2.2
+ log-adjacency-changes
+ network 192.168.20.0 0.0.0.255 area 0
+ network 10.0.12.0 0.0.0.3 area 0
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+!
+!
+!
+!
+!
+line con 0
+!
+ --More-- line aux 0
+!
+line vty 0 4
+ logging synchronous
+ login authentication default
+ transport input ssh
+!
+!
+!
+end
+
+
+
+R2#h run
+     ^
+% Invalid input detected at '^' marker.
+	
+R2#
+R2#sh run
+Building configuration...
+
+Current configuration : 1373 bytes
+!
+version 15.1
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname R2
+!
+!
+!
+enable secret 5 $1$mERr$RldxcCZEZsTFTETUyRaA50
+!
+!
+!
+!
+!
+aaa new-model
+!
+aaa authentication login default local 
+!
+!
+!
+!
+!
+!
+!
+no ip cef
+no ipv6 cef
+!
+!
+!
+username mihajlok privilege 15 secret 5 $1$mERr$W1IbdyLzAZgXm2SPii/Df0
+!
+!
+license udi pid CISCO2911/K9 sn FTX1524TOU0-
+!
+!
+!
+!
+!
+!
+!
+!
+!
+ip ssh version 2
+ip domain-name lab.local
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0
+ description Veza-ka-svicu
+ ip address 192.168.20.1 255.255.255.0
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1
+ description UNUSED
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface GigabitEthernet0/2
+ description UNUSED
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface Serial0/0/0
+ description veza-ka-R1
+ ip address 10.0.12.2 255.255.255.252
+!
+interface Serial0/0/1
+ description UNUSED
+ no ip address
+ clock rate 2000000
+ shutdown
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+router ospf 10
+ router-id 2.2.2.2
+ log-adjacency-changes
+ network 192.168.20.0 0.0.0.255 area 0
+ network 10.0.12.0 0.0.0.3 area 0
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+!
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ logging synchronous
+ login authentication default
+ transport input ssh
+!
+!
+!
+end
+Neighbor ID     Pri   State           Dead Time   Address         Interface
+1.1.1.1           0   FULL/  -        00:00:33    10.0.12.1       Serial0/0/0
+R2#sh ip rout
+R2#sh ip route 
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2, E - EGP
+       i - IS-IS, L1 - IS-IS level-1, L2 - IS-IS level-2, ia - IS-IS inter area
+       * - candidate default, U - per-user static route, o - ODR
+       P - periodic downloaded static route
+
+Gateway of last resort is not set
+
+     10.0.0.0/8 is variably subnetted, 3 subnets, 2 masks
+C       10.0.12.0/30 is directly connected, Serial0/0/0
+L       10.0.12.2/32 is directly connected, Serial0/0/0
+O       10.0.13.0/30 [110/128] via 10.0.12.1, 00:47:29, Serial0/0/0
+O    192.168.10.0/24 [110/65] via 10.0.12.1, 00:29:34, Serial0/0/0
+     192.168.20.0/24 is variably subnetted, 2 subnets, 2 masks
+C       192.168.20.0/24 is directly connected, GigabitEthernet0/0
+L       192.168.20.1/32 is directly connected, GigabitEthernet0/0
+O    192.168.30.0/24 [110/129] via 10.0.12.1, 00:25:59, Serial0/0/0
+
+
+R2#
