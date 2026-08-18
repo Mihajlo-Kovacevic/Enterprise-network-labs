@@ -1,0 +1,288 @@
+ACCESS1#sh run
+Building configuration...
+
+Current configuration : 2726 bytes
+!
+version 15.0
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname ACCESS1
+!
+enable secret 5 $1$mERr$RldxcCZEZsTFTETUyRaA50
+!
+!
+!
+!
+!
+aaa new-model
+!
+aaa authentication login default local 
+!
+!
+!
+!
+ip ssh version 2
+ip domain-name lab.local
+!
+username mihajlok secret 5 $1$mERr$W1IbdyLzAZgXm2SPii/Df0
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+interface Port-channel2
+ description Link_to_CORE1
+ switchport trunk allowed vlan 10,20,30
+ switchport mode trunk
+ switchport nonegotiate
+!
+interface FastEthernet0/1
+ description LAN_Mgmt
+ switchport access vlan 10
+ switchport mode access
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+interface FastEthernet0/2
+ description LAN_Sales
+ switchport access vlan 20
+ switchport mode access
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+interface FastEthernet0/3
+ description LAN_IT
+ switchport access vlan 30
+ switchport mode access
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+interface FastEthernet0/4
+ description UNUSED
+ shutdown
+!
+interface FastEthernet0/5
+ description UNUSED
+ shutdown
+!
+interface FastEthernet0/6
+ description UNUSED
+ shutdown
+!
+interface FastEthernet0/7
+ description UNUSED
+ shutdown
+!
+interface FastEthernet0/8
+ description UNUSED
+ shutdown
+!
+interface FastEthernet0/9
+ description UNUSED
+ shutdown
+!
+interface FastEthernet0/10
+ description UNUSED
+ shutdown
+!
+interface FastEthernet0/11
+ description UNUSED
+ shutdown
+!
+interface FastEthernet0/12
+ description UNUSED
+ shutdown
+!
+interface FastEthernet0/13
+ description UNUSED
+ shutdown
+!
+interface FastEthernet0/14
+ description UNUSED
+ shutdown
+!
+interface FastEthernet0/15
+ description UNUSED
+ shutdown
+!
+interface FastEthernet0/16
+ description UNUSED
+ shutdown
+!
+interface FastEthernet0/17
+ description UNUSED
+ shutdown
+!
+interface FastEthernet0/18
+ description UNUSED
+ shutdown
+!
+interface FastEthernet0/19
+ description UNUSED
+ shutdown
+!
+interface FastEthernet0/20
+ description UNUSED
+ shutdown
+!
+interface FastEthernet0/21
+ description UNUSED
+ shutdown
+!
+interface FastEthernet0/22
+ description UNUSED
+ shutdown
+!
+interface FastEthernet0/23
+ description Link_to_CORE1
+ switchport trunk allowed vlan 10,20,30
+ switchport mode trunk
+ switchport nonegotiate
+ channel-group 2 mode active
+!
+interface FastEthernet0/24
+ description Link_to_CORE1
+ switchport trunk allowed vlan 10,20,30
+ switchport mode trunk
+ switchport nonegotiate
+ channel-group 2 mode active
+!
+interface GigabitEthernet0/1
+!
+interface GigabitEthernet0/2
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+!
+!
+!
+line con 0
+ login
+!
+line vty 0 4
+ login authentication default
+ transport input ssh
+line vty 5 15
+!
+!
+!
+!
+ACCESS1# show spanning-tree 
+VLAN0001
+  Spanning tree enabled protocol ieee
+  Root ID    Priority    24577
+             Address     00E0.F7AB.5D51
+             Cost        12
+             Port        27(Port-channel2)
+             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+  Bridge ID  Priority    32769  (priority 32768 sys-id-ext 1)
+             Address     00E0.A347.BDEB
+             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+             Aging Time  20
+
+Interface        Role Sts Cost      Prio.Nbr Type
+---------------- ---- --- --------- -------- --------------------------------
+Po2              Root FWD 12        128.27   Shr
+Fa0/23           Desg FWD 19        128.23   P2p
+Fa0/24           Desg FWD 19        128.24   P2p
+
+VLAN0010
+  Spanning tree enabled protocol ieee
+  Root ID    Priority    32778
+             Address     0000.0C4A.7BE4
+             Cost        15
+             Port        27(Port-channel2)
+             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+  Bridge ID  Priority    32778  (priority 32768 sys-id-ext 10)
+             Address     00E0.A347.BDEB
+             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+             Aging Time  20
+
+Interface        Role Sts Cost      Prio.Nbr Type
+---------------- ---- --- --------- -------- --------------------------------
+Po2              Root FWD 12        128.27   Shr
+Fa0/1            Desg FWD 19        128.1    P2p
+Fa0/24           Desg FWD 19        128.24   P2p
+
+VLAN0020
+  Spanning tree enabled protocol ieee
+  Root ID    Priority    32788
+             Address     0000.0C4A.7BE4
+             Cost        15
+             Port        27(Port-channel2)
+             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+  Bridge ID  Priority    32788  (priority 32768 sys-id-ext 20)
+             Address     00E0.A347.BDEB
+             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+             Aging Time  20
+
+Interface        Role Sts Cost      Prio.Nbr Type
+---------------- ---- --- --------- -------- --------------------------------
+Po2              Root FWD 12        128.27   Shr
+Fa0/2            Desg FWD 19        128.2    P2p
+Fa0/24           Desg FWD 19        128.24   P2p
+
+VLAN0030
+  Spanning tree enabled protocol ieee
+  Root ID    Priority    32798
+             Address     00E0.A347.BDEB
+             This bridge is the root
+             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+  Bridge ID  Priority    32798  (priority 32768 sys-id-ext 30)
+             Address     00E0.A347.BDEB
+             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+             Aging Time  20
+
+Interface        Role Sts Cost      Prio.Nbr Type
+---------------- ---- --- --------- -------- --------------------------------
+Po2              Desg FWD 12        128.27   Shr
+Fa0/3            Desg FWD 19        128.3    P2p
+
+ACCESS1#sh inter
+ACCESS1#sh interfaces tru
+ACCESS1#sh interfaces trunk 
+Port        Mode         Encapsulation  Status        Native vlan
+Po2         on           802.1q         trunking      1
+
+Port        Vlans allowed on trunk
+Po2         10,20,30
+
+Port        Vlans allowed and active in management domain
+Po2         10,20,30
+
+Port        Vlans in spanning tree forwarding state and not pruned
+Po2         10,20,30
+
+ACCESS1# 
+ACCESS1#sh
+ACCESS1#show eth
+ACCESS1#show etherchannel sum
+ACCESS1#show etherchannel summary 
+Flags:  D - down        P - in port-channel
+        I - stand-alone s - suspended
+        H - Hot-standby (LACP only)
+        R - Layer3      S - Layer2
+        U - in use      f - failed to allocate aggregator
+        u - unsuitable for bundling
+        w - waiting to be aggregated
+        d - default port
+
+
+Number of channel-groups in use: 1
+Number of aggregators:           1
+
+Group  Port-channel  Protocol    Ports
+------+-------------+-----------+----------------------------------------------
+
+2      Po2(SU)           LACP   Fa0/23(P) Fa0/24(P) 
+ACCESS1#
+end
