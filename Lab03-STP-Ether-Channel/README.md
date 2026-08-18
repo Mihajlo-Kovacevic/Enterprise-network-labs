@@ -1,4 +1,4 @@
-# Lab 04 – STP and EtherChannel
+# Lab 03 – STP and EtherChannel
 
 ## Overview
 
