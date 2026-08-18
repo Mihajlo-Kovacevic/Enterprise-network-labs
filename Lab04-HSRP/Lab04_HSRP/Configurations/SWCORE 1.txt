@@ -1,0 +1,393 @@
+CORESW1#sh run 
+Building configuration...
+
+Current configuration : 3214 bytes
+!
+version 12.2(37)SE1
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname CORESW1
+!
+!
+enable secret 5 $1$mERr$RldxcCZEZsTFTETUyRaA50
+!
+!
+!
+!
+!
+aaa new-model
+!
+aaa authentication login default local 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+username mihajlok privilege 15 secret 5 $1$mERr$W1IbdyLzAZgXm2SPii/Df0
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+ip ssh version 2
+ip domain-name lab.local
+!
+!
+spanning-tree mode pvst
+spanning-tree vlan 1,10,20,30 priority 24576
+!
+!
+!
+!
+!
+!
+interface Port-channel1
+ description Link_to_Core2
+ switchport trunk allowed vlan 10,20,30
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport nonegotiate
+!
+interface Port-channel2
+ description Link_to_ACCESS1
+ switchport trunk allowed vlan 10,20,30
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport nonegotiate
+!
+interface FastEthernet0/1
+ description UNUSED
+ shutdown
+!
+interface FastEthernet0/2
+ description UNUSED
+ shutdown
+!
+interface FastEthernet0/3
+ description UNUSED
+ shutdown
+!
+interface FastEthernet0/4
+ description UNUSED
+ shutdown
+!
+interface FastEthernet0/5
+ description UNUSED
+ shutdown
+!
+interface FastEthernet0/6
+ description UNUSED
+ shutdown
+!
+interface FastEthernet0/7
+ description UNUSED
+ shutdown
+!
+interface FastEthernet0/8
+ description UNUSED
+ shutdown
+!
+interface FastEthernet0/9
+ description UNUSED
+ shutdown
+!
+interface FastEthernet0/10
+ description UNUSED
+ shutdown
+!
+interface FastEthernet0/11
+ description UNUSED
+ shutdown
+!
+interface FastEthernet0/12
+ description UNUSED
+ shutdown
+!
+interface FastEthernet0/13
+ description UNUSED
+ shutdown
+!
+interface FastEthernet0/14
+ description UNUSED
+ shutdown
+!
+interface FastEthernet0/15
+ description UNUSED
+ shutdown
+!
+interface FastEthernet0/16
+ description UNUSED
+ shutdown
+!
+interface FastEthernet0/17
+ description UNUSED
+ shutdown
+!
+interface FastEthernet0/18
+ description UNUSED
+ shutdown
+!
+interface FastEthernet0/19
+ description UNUSED
+ shutdown
+!
+interface FastEthernet0/20
+ description UNUSED
+ shutdown
+!
+interface FastEthernet0/21
+ description UNUSED
+ shutdown
+!
+interface FastEthernet0/22
+ description UNUSED
+ shutdown
+!
+interface FastEthernet0/23
+ description Link_to_ACCES1
+ switchport trunk allowed vlan 10,20,30
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport nonegotiate
+ channel-group 2 mode active
+!
+interface FastEthernet0/24
+ description Link_to_ACCES1
+ switchport trunk allowed vlan 10,20,30
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport nonegotiate
+ channel-group 2 mode active
+!
+interface GigabitEthernet0/1
+ description Link_to_Core2
+ switchport trunk allowed vlan 10,20,30
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport nonegotiate
+ channel-group 1 mode active
+!
+interface GigabitEthernet0/2
+ description Link_to_Core2
+ switchport trunk allowed vlan 10,20,30
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport nonegotiate
+ channel-group 1 mode active
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+!
+!
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ logging synchronous
+ login authentication default
+ transport input ssh
+!
+!
+!
+!
+end
+CORESW1#show spanning-tree 
+VLAN0001
+  Spanning tree enabled protocol ieee
+  Root ID    Priority    24577
+             Address     00E0.F7AB.5D51
+             This bridge is the root
+             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+  Bridge ID  Priority    24577  (priority 24576 sys-id-ext 1)
+             Address     00E0.F7AB.5D51
+             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+             Aging Time  20
+
+Interface        Role Sts Cost      Prio.Nbr Type
+---------------- ---- --- --------- -------- --------------------------------
+Po2              Desg FWD 12        128.28   Shr
+Po1              Desg FWD 3         128.27   Shr
+Gi0/1            Desg FWD 4         128.25   P2p
+Fa0/24           Desg FWD 19        128.24   P2p
+Fa0/23           Desg FWD 19        128.23   P2p
+Gi0/2            Desg FWD 4         128.26   P2p
+
+VLAN0010
+  Spanning tree enabled protocol ieee
+  Root ID    Priority    32778
+             Address     0000.0C4A.7BE4
+             Cost        3
+             Port        27(Port-channel1)
+             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+  Bridge ID  Priority    32778  (priority 32768 sys-id-ext 10)
+             Address     00E0.F7AB.5D51
+             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+             Aging Time  20
+
+Interface        Role Sts Cost      Prio.Nbr Type
+---------------- ---- --- --------- -------- --------------------------------
+Po2              Desg FWD 12        128.28   Shr
+Po1              Root FWD 3         128.27   Shr
+Gi0/1            Desg FWD 4         128.25   P2p
+Gi0/2            Desg FWD 4         128.26   P2p
+
+VLAN0020
+  Spanning tree enabled protocol ieee
+  Root ID    Priority    32788
+             Address     0000.0C4A.7BE4
+             Cost        3
+             Port        27(Port-channel1)
+             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+  Bridge ID  Priority    32788  (priority 32768 sys-id-ext 20)
+             Address     00E0.F7AB.5D51
+             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+             Aging Time  20
+
+Interface        Role Sts Cost      Prio.Nbr Type
+---------------- ---- --- --------- -------- --------------------------------
+Po2              Desg FWD 12        128.28   Shr
+Po1              Root FWD 3         128.27   Shr
+Gi0/1            Desg FWD 4         128.25   P2p
+Gi0/2            Desg FWD 4         128.26   P2p
+
+VLAN0030
+  Spanning tree enabled protocol ieee
+  Root ID    Priority    32798
+             Address     00E0.A347.BDEB
+             Cost        12
+             Port        28(Port-channel2)
+             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+  Bridge ID  Priority    32798  (priority 32768 sys-id-ext 30)
+             Address     00E0.F7AB.5D51
+             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+             Aging Time  20
+
+Interface        Role Sts Cost      Prio.Nbr Type
+---------------- ---- --- --------- -------- --------------------------------
+Po2              Root FWD 12        128.28   Shr
+
+CORESW1#sh ether
+CORESW1#sh etherchannel sum
+CORESW1#sh etherchannel summary 
+Flags:  D - down        P - in port-channel
+        I - stand-alone s - suspended
+        H - Hot-standby (LACP only)
+        R - Layer3      S - Layer2
+        U - in use      f - failed to allocate aggregator
+        u - unsuitable for bundling
+        w - waiting to be aggregated
+        d - default port
+
+
+Number of channel-groups in use: 2
+Number of aggregators:           2
+
+Group  Port-channel  Protocol    Ports
+------+-------------+-----------+----------------------------------------------
+
+1      Po1(SU)           LACP   Gig0/1(P) Gig0/2(P) 
+2      Po2(SU)           LACP   Fa0/23(P) Fa0/24(P) 
+CORESW1# sh int tru
+CORESW1# sh int trunk 
+Port        Mode         Encapsulation  Status        Native vlan
+Po1         on           802.1q         trunking      1
+Po2         on           802.1q         trunking      1
+
+Port        Vlans allowed on trunk
+Po1         10,20,30
+Po2         10,20,30
+
+Port        Vlans allowed and active in management domain
+Po1         10,20,30
+Po2         10,20,30
+
+Port        Vlans in spanning tree forwarding state and not pruned
+Po1         10,20,30
+Po2         10,20,30
+
+Interface   Grp  Pri P State    Active          Standby         Virtual IP
+Vl10        10   110 P Active   local           192.168.10.3    192.168.10.1   
+Vl20        20   110 P Active   local           192.168.20.3    192.168.20.1   
+Vl30        30   110 P Active   local           192.168.30.3    192.168.30.1   
+CORESW1#sh ip rou
+CORESW1#sh ip route 
+Codes: C - connected, S - static, I - IGRP, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2, E - EGP
+       i - IS-IS, L1 - IS-IS level-1, L2 - IS-IS level-2, ia - IS-IS inter area
+       * - candidate default, U - per-user static route, o - ODR
+       P - periodic downloaded static route
+
+Gateway of last resort is not set
+
+C    192.168.10.0/24 is directly connected, Vlan10
+C    192.168.20.0/24 is directly connected, Vlan20
+C    192.168.30.0/24 is directly connected, Vlan30
+
+CORESW1#show ip ointer
+CORESW1#show ip inter
+CORESW1#show ip interface bri
+CORESW1#show ip interface brief 
+Interface              IP-Address      OK? Method Status                Protocol 
+Port-channel1          unassigned      YES unset  up                    up 
+Port-channel2          unassigned      YES unset  up                    up 
+FastEthernet0/1        unassigned      YES unset  administratively down down 
+FastEthernet0/2        unassigned      YES unset  administratively down down 
+FastEthernet0/3        unassigned      YES unset  administratively down down 
+FastEthernet0/4        unassigned      YES unset  administratively down down 
+FastEthernet0/5        unassigned      YES unset  administratively down down 
+FastEthernet0/6        unassigned      YES unset  administratively down down 
+FastEthernet0/7        unassigned      YES unset  administratively down down 
+FastEthernet0/8        unassigned      YES unset  administratively down down 
+FastEthernet0/9        unassigned      YES unset  administratively down down 
+FastEthernet0/10       unassigned      YES unset  administratively down down 
+FastEthernet0/11       unassigned      YES unset  administratively down down 
+FastEthernet0/12       unassigned      YES unset  administratively down down 
+FastEthernet0/13       unassigned      YES unset  administratively down down 
+FastEthernet0/14       unassigned      YES unset  administratively down down 
+FastEthernet0/15       unassigned      YES unset  administratively down down 
+FastEthernet0/16       unassigned      YES unset  administratively down down 
+FastEthernet0/17       unassigned      YES unset  administratively down down 
+FastEthernet0/18       unassigned      YES unset  administratively down down 
+FastEthernet0/19       unassigned      YES unset  administratively down down 
+FastEthernet0/20       unassigned      YES unset  administratively down down 
+FastEthernet0/21       unassigned      YES unset  administratively down down 
+FastEthernet0/22       unassigned      YES unset  administratively down down 
+FastEthernet0/23       unassigned      YES unset  up                    up 
+FastEthernet0/24       unassigned      YES unset  up                    up 
+GigabitEthernet0/1     unassigned      YES unset  up                    up 
+GigabitEthernet0/2     unassigned      YES unset  up                    up 
+Vlan1                  unassigned      YES unset  administratively down down 
+Vlan10                 192.168.10.2    YES manual up                    up 
+Vlan20                 192.168.20.2    YES manual up                    up 
+Vlan30                 192.168.30.2    YES manual up                    up
+CORESW1# 
+CORESW1#
